@@ -12,9 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdministrationRouteImport } from './routes/administration'
+import { Route as AdmissionRouteImport } from './routes/admission'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DonateRouteImport } from './routes/donate'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ProgramsRouteImport } from './routes/programs'
+import { Route as PortalRoleRouteImport } from './routes/portal.$role'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,6 +33,21 @@ const AboutRoute = AboutRouteImport.update({
 const AdministrationRoute = AdministrationRouteImport.update({
   id: '/administration',
   path: '/administration',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionRoute = AdmissionRouteImport.update({
+  id: '/admission',
+  path: '/admission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonateRoute = DonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsRoute = EventsRouteImport.update({
@@ -46,55 +65,99 @@ const ProgramsRoute = ProgramsRouteImport.update({
   path: '/programs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalRoleRoute = PortalRoleRouteImport.update({
+  id: '/portal/$role',
+  path: '/portal/$role',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/administration': typeof AdministrationRoute
+  '/admission': typeof AdmissionRoute
+  '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/events': typeof EventsRoute
   '/gallery': typeof GalleryRoute
   '/programs': typeof ProgramsRoute
+  '/portal/$role': typeof PortalRoleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/administration': typeof AdministrationRoute
+  '/admission': typeof AdmissionRoute
+  '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/events': typeof EventsRoute
   '/gallery': typeof GalleryRoute
   '/programs': typeof ProgramsRoute
+  '/portal/$role': typeof PortalRoleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/administration': typeof AdministrationRoute
+  '/admission': typeof AdmissionRoute
+  '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/events': typeof EventsRoute
   '/gallery': typeof GalleryRoute
   '/programs': typeof ProgramsRoute
+  '/portal/$role': typeof PortalRoleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/administration' | '/events' | '/gallery' | '/programs'
+    | '/'
+    | '/about'
+    | '/administration'
+    | '/admission'
+    | '/contact'
+    | '/donate'
+    | '/events'
+    | '/gallery'
+    | '/programs'
+    | '/portal/$role'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/administration' | '/events' | '/gallery' | '/programs'
+  to:
+    | '/'
+    | '/about'
+    | '/administration'
+    | '/admission'
+    | '/contact'
+    | '/donate'
+    | '/events'
+    | '/gallery'
+    | '/programs'
+    | '/portal/$role'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/administration'
+    | '/admission'
+    | '/contact'
+    | '/donate'
     | '/events'
     | '/gallery'
     | '/programs'
+    | '/portal/$role'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdministrationRoute: typeof AdministrationRoute
+  AdmissionRoute: typeof AdmissionRoute
+  ContactRoute: typeof ContactRoute
+  DonateRoute: typeof DonateRoute
   EventsRoute: typeof EventsRoute
   GalleryRoute: typeof GalleryRoute
   ProgramsRoute: typeof ProgramsRoute
+  PortalRoleRoute: typeof PortalRoleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -120,6 +183,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdministrationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admission': {
+      id: '/admission'
+      path: '/admission'
+      fullPath: '/admission'
+      preLoaderRoute: typeof AdmissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donate': {
+      id: '/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof DonateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/events': {
       id: '/events'
       path: '/events'
@@ -141,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProgramsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/$role': {
+      id: '/portal/$role'
+      path: '/portal/$role'
+      fullPath: '/portal/$role'
+      preLoaderRoute: typeof PortalRoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -148,9 +239,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdministrationRoute: AdministrationRoute,
+  AdmissionRoute: AdmissionRoute,
+  ContactRoute: ContactRoute,
+  DonateRoute: DonateRoute,
   EventsRoute: EventsRoute,
   GalleryRoute: GalleryRoute,
   ProgramsRoute: ProgramsRoute,
+  PortalRoleRoute: PortalRoleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -44,11 +44,11 @@ export const Route = createFileRoute("/")({
 function Hero() {
   const { t } = useLang();
   const actions = [
-    { to: "/programs", label: UI.explore, Icon: BookOpen },
-    { to: "/portal/student", label: UI.studentPortal, Icon: GraduationCap },
-    { to: "/portal/teacher", label: UI.teacherPortal, Icon: Users },
-    { to: "/contact", label: UI.contact, Icon: Phone },
-    { to: "/admission", label: UI.admission, Icon: FileText },
+    { to: "/programs", params: undefined, label: UI.explore, Icon: BookOpen },
+    { to: "/portal/$role", params: { role: "student" }, label: UI.studentPortal, Icon: GraduationCap },
+    { to: "/portal/$role", params: { role: "teacher" }, label: UI.teacherPortal, Icon: Users },
+    { to: "/contact", params: undefined, label: UI.contact, Icon: Phone },
+    { to: "/admission", params: undefined, label: UI.admission, Icon: FileText },
   ];
 
   return (
@@ -87,10 +87,11 @@ function Hero() {
           </p>
 
           <div className="mt-9 flex flex-wrap justify-center gap-3 lg:justify-start">
-            {actions.map(({ to, label, Icon }, i) => (
+            {actions.map(({ to, params, label, Icon }, i) => (
               <Link
-                key={to}
+                key={to + (params?.role ?? "")}
                 to={to}
+                params={params as never}
                 className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-transform hover:-translate-y-0.5 ${
                   i === 0
                     ? "bg-gold text-charcoal"
