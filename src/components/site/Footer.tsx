@@ -31,7 +31,13 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link to="/donate" className="opacity-80 transition-opacity hover:opacity-100">
+                {t(m("Donate", "عطیات", "التبرعات", "दान"))}
+              </Link>
+            </li>
           </ul>
+
         </div>
 
         <div>
