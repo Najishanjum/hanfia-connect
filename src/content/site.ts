@@ -47,7 +47,6 @@ export const NAV: { to: string; label: Multi }[] = [
   { to: "/gallery", label: m("Gallery", "گیلری", "المعرض", "ग्यालरी") },
   { to: "/events", label: m("Events & Notices", "اعلانات و پروگرام", "الأخبار والفعاليات", "सूचना तथा कार्यक्रम") },
   { to: "/admission", label: m("Admission", "داخلہ", "القبول", "भर्ना") },
-  { to: "/admission", label: m("Admission", "داخلہ", "القبول", "भर्ना") },
   { to: "/contact", label: m("Contact", "رابطہ", "اتصل بنا", "सम्पर्क") },
 ];
 

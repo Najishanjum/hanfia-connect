@@ -47,14 +47,15 @@ export function Header() {
             <span className="flex size-11 shrink-0 items-center justify-center rounded-full border-2 border-gold bg-primary text-primary-foreground shadow-sm">
               <span className="font-arabic text-lg leading-none">م</span>
             </span>
-            <span className="leading-tight">
-              <span className="block font-display text-[15px] font-semibold tracking-[0.08em] text-primary sm:text-lg">
+            <span className="leading-tight whitespace-nowrap">
+              <span className="block font-display text-[15px] font-semibold tracking-[0.06em] text-primary sm:text-[17px]">
                 {t(SITE.brandTop)}
               </span>
-              <span className="block text-[10px] tracking-[0.22em] text-muted-foreground sm:text-[11px]">
+              <span className="block text-[10px] tracking-[0.2em] text-muted-foreground">
                 {t(SITE.brandBottom)}
               </span>
             </span>
+
           </Link>
 
           <nav className="ms-auto hidden items-center gap-0.5 xl:flex">
