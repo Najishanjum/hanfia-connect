@@ -15,6 +15,8 @@ export const SITE = {
     "अल-जामिअतुल हनफिया मज़हरुल उलूम",
   ),
   short: m("AHMU", "مظہر العلوم", "مظهر العلوم", "AHMU"),
+  brandTop: m("AL-JAMIATUL HANFIA", "الجامعۃ الحنفیۃ", "الجامعة الحنفية", "अल-जामिअतुल हनफिया"),
+  brandBottom: m("MAZHARUL ULOOM", "مظہر العلوم", "مظهر العلوم", "मज़हरुल उलूम"),
   location: m(
     "Gualb Pur, Siswa Kataya, Mahottari, Nepal",
     "گوالب پور، سسوا کٹیا، مہوتری، نیپال",
@@ -45,7 +47,7 @@ export const NAV: { to: string; label: Multi }[] = [
   { to: "/gallery", label: m("Gallery", "گیلری", "المعرض", "ग्यालरी") },
   { to: "/events", label: m("Events & Notices", "اعلانات و پروگرام", "الأخبار والفعاليات", "सूचना तथा कार्यक्रम") },
   { to: "/admission", label: m("Admission", "داخلہ", "القبول", "भर्ना") },
-  { to: "/donate", label: m("Donate", "عطیات", "التبرعات", "दान") },
+  { to: "/admission", label: m("Admission", "داخلہ", "القبول", "भर्ना") },
   { to: "/contact", label: m("Contact", "رابطہ", "اتصل بنا", "सम्पर्क") },
 ];
 
