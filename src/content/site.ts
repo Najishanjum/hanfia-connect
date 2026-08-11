@@ -41,11 +41,11 @@ export const SITE = {
 
 export const NAV: { to: string; label: Multi }[] = [
   { to: "/", label: m("Home", "ہوم", "الرئيسية", "गृहपृष्ठ") },
-  { to: "/about", label: m("About & History", "تعارف و تاریخ", "عن الجامعة", "परिचय") },
+  { to: "/about", label: m("About", "تعارف", "عن الجامعة", "परिचय") },
   { to: "/programs", label: m("Programs", "شعبہ جات", "البرامج", "कार्यक्रम") },
   { to: "/administration", label: m("Administration", "انتظامیہ", "الإدارة", "प्रशासन") },
   { to: "/gallery", label: m("Gallery", "گیلری", "المعرض", "ग्यालरी") },
-  { to: "/events", label: m("Events & Notices", "اعلانات و پروگرام", "الأخبار والفعاليات", "सूचना तथा कार्यक्रम") },
+  { to: "/events", label: m("Events", "پروگرام", "الفعاليات", "कार्यक्रमहरू") },
   { to: "/admission", label: m("Admission", "داخلہ", "القبول", "भर्ना") },
   { to: "/contact", label: m("Contact", "رابطہ", "اتصل بنا", "सम्पर्क") },
 ];

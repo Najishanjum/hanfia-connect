@@ -65,7 +65,7 @@ export function Header() {
                 to={item.to}
                 activeOptions={{ exact: item.to === "/" }}
                 activeProps={{ className: "text-primary after:scale-x-100" }}
-                className="relative rounded-md px-3 py-2 text-[13px] font-medium uppercase tracking-wide text-foreground/75 transition-colors after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:bg-gold after:transition-transform hover:text-primary hover:after:scale-x-100"
+                className="relative whitespace-nowrap rounded-md px-3 py-2 text-[13px] font-medium uppercase tracking-wide text-foreground/75 transition-colors after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:bg-gold after:transition-transform hover:text-primary hover:after:scale-x-100"
               >
                 {t(item.label)}
               </Link>
