@@ -76,7 +76,7 @@ function Hero() {
         ))}
       </div>
 
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-20 sm:py-28 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pt-20 pb-28 sm:pt-28 sm:pb-36 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="animate-rise text-center text-cream lg:text-start">
           <p className="font-arabic text-lg tracking-wide text-gold">{t(SITE.motto)}</p>
           <h1 className="mt-4 font-display text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl">
