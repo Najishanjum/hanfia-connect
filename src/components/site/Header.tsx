@@ -93,7 +93,7 @@ export function Header() {
             </div>
             <Link
               to="/admission"
-              className="hidden items-center gap-2 rounded-md bg-gold px-4 py-2 text-xs font-semibold uppercase tracking-wide text-charcoal shadow-sm transition-transform hover:-translate-y-0.5 sm:inline-flex"
+              className="hidden items-center gap-2 whitespace-nowrap rounded-md bg-gold px-4 py-2 text-xs font-semibold uppercase tracking-wide text-charcoal shadow-sm transition-transform hover:-translate-y-0.5 sm:inline-flex xl:hidden 2xl:inline-flex"
             >
               {t(m("Apply Now", "داخلہ لیں", "قدّم الآن", "आवेदन गर्नुहोस्"))}
               <ArrowRight className="size-3.5 rtl:rotate-180" aria-hidden />
