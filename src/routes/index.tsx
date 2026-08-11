@@ -7,6 +7,7 @@ import {
   FileText,
   CalendarDays,
   ArrowRight,
+  ShieldCheck,
 } from "lucide-react";
 import {
   ABOUT,
@@ -119,15 +120,79 @@ function Hero() {
   );
 }
 
+function FeatureStrip() {
+  const { t } = useLang();
+  const items = [
+    {
+      Icon: GraduationCap,
+      title: m("Holistic Education", "ہمہ جہت تعلیم", "تعليم شامل", "समग्र शिक्षा"),
+      text: m(
+        "Religious and modern learning together.",
+        "دینی اور عصری تعلیم ایک ساتھ۔",
+        "التعليم الديني والعصري معاً.",
+        "धार्मिक र आधुनिक शिक्षा सँगै।",
+      ),
+    },
+    {
+      Icon: Users,
+      title: m("Expert Scholars", "ماہر اساتذہ", "علماء أكفاء", "अनुभवी शिक्षक"),
+      text: m(
+        "Qualified ulama guiding every jammat.",
+        "ہر جماعت کی رہنمائی مستند علماء سے۔",
+        "علماء مؤهلون لكل جماعة.",
+        "हरेक जमातका लागि योग्य उलमा।",
+      ),
+    },
+    {
+      Icon: BookOpen,
+      title: m("Qur'an & Hifz", "قرآن و حفظ", "القرآن والحفظ", "कुरआन र हिफ्ज़"),
+      text: m(
+        "Tajweed, nazra and complete memorisation.",
+        "تجوید، ناظرہ اور مکمل حفظ۔",
+        "تجويد وناظرة وحفظ كامل.",
+        "तजवीद, नाज़रा र पूर्ण हिफ्ज़।",
+      ),
+    },
+    {
+      Icon: ShieldCheck,
+      title: m("Safe Campus", "محفوظ کیمپس", "حرم آمن", "सुरक्षित क्याम्पस"),
+      text: m(
+        "Hostel, meals and caring supervision.",
+        "ہاسٹل، کھانا اور شفقت بھری نگرانی۔",
+        "سكن وطعام وإشراف رحيم.",
+        "छात्रावास, खाना र स्नेही निगरानी।",
+      ),
+    },
+  ];
+
+  return (
+    <div className="relative z-10 mx-auto -mt-12 max-w-7xl px-4">
+      <div className="grid gap-px overflow-hidden rounded-xl bg-sidebar-border/60 shadow-xl sm:grid-cols-2 lg:grid-cols-4">
+        {items.map(({ Icon, title, text }) => (
+          <div key={title.en} className="group bg-sidebar p-6 text-sidebar-foreground">
+            <span className="flex size-11 items-center justify-center rounded-full border border-gold/50 text-gold transition-colors group-hover:bg-gold group-hover:text-charcoal">
+              <Icon className="size-5" aria-hidden />
+            </span>
+            <h3 className="mt-4 font-display text-base text-sidebar-primary">{t(title)}</h3>
+            <p className="mt-1.5 text-xs leading-relaxed opacity-80">{t(text)}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Home() {
   const { t } = useLang();
 
   return (
     <>
       <Hero />
+      <FeatureStrip />
 
       <Section>
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+
           <div>
             <SectionHeading title={ABOUT.heading} align="start" />
             <p className="mt-6 leading-relaxed text-foreground/85">{t(ABOUT.body)}</p>
