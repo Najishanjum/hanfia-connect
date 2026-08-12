@@ -45,8 +45,8 @@ export function Header() {
               key={item.to}
               to={item.to}
               activeOptions={{ exact: item.to === "/" }}
-              activeProps={{ className: "bg-charcoal text-cream shadow-sm" }}
-              className="rounded-full px-3.5 py-2 text-[12.5px] font-medium whitespace-nowrap text-foreground/70 transition-colors hover:text-charcoal"
+              activeProps={{ className: "bg-charcoal !text-cream shadow-sm" }}
+              className="rounded-full px-3 py-2 text-[12px] font-medium whitespace-nowrap text-foreground/70 transition-colors hover:text-charcoal"
             >
               {t(item.label)}
             </Link>
@@ -76,7 +76,7 @@ export function Header() {
           <Link
             to="/portal/$role"
             params={{ role: "student" }}
-            className="hidden items-center gap-1.5 rounded-full border border-border px-3.5 py-2 text-xs font-medium text-foreground/80 transition-colors hover:border-charcoal hover:text-charcoal lg:inline-flex"
+            className="hidden items-center gap-1.5 rounded-full border border-border px-3.5 py-2 text-xs font-medium text-foreground/80 transition-colors hover:border-charcoal hover:text-charcoal 2xl:inline-flex"
           >
             <GraduationCap className="size-3.5" aria-hidden />
             {t(m("Portal", "پورٹل", "البوابة", "पोर्टल"))}
@@ -110,7 +110,7 @@ export function Header() {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: item.to === "/" }}
-                activeProps={{ className: "bg-charcoal text-cream" }}
+                activeProps={{ className: "bg-charcoal !text-cream" }}
                 className="rounded-2xl px-4 py-2.5 text-sm font-medium text-foreground/85"
               >
                 {t(item.label)}
