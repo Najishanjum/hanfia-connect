@@ -57,9 +57,9 @@ function Programs() {
           {PROGRAMS.map((p) => (
             <article
               key={p.title.en}
-              className="rounded-lg border border-border bg-card p-6 transition-shadow hover:shadow-md"
+              className="soft-card p-6 transition-shadow hover:shadow-md"
             >
-              <h2 className="font-display text-xl text-primary">{t(p.title)}</h2>
+              <h2 className="font-display text-lg tracking-tight text-charcoal uppercase">{t(p.title)}</h2>
               <div className="gold-rule mt-3 w-14" aria-hidden />
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{t(p.text)}</p>
             </article>

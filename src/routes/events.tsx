@@ -48,9 +48,9 @@ function Events() {
         />
         <ul className="mt-6 space-y-4">
           {NOTICES.map((n) => (
-            <li key={n.title.en} className="rounded-lg border border-border bg-card p-6">
+            <li key={n.title.en} className="soft-card p-6">
               <p className="text-xs text-muted-foreground">{n.date}</p>
-              <h3 className="mt-1 font-display text-xl text-primary">{t(n.title)}</h3>
+              <h3 className="mt-1 font-display text-lg tracking-tight text-charcoal uppercase">{t(n.title)}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t(n.text)}</p>
             </li>
           ))}
@@ -66,13 +66,13 @@ function Events() {
             {EVENTS.map((e) => (
               <div
                 key={e.title.en}
-                className="flex items-center gap-4 rounded-lg border border-border bg-card p-5"
+                className="flex items-center gap-4 soft-card p-5"
               >
                 <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-secondary text-primary">
                   <CalendarDays className="size-5" aria-hidden />
                 </span>
                 <span>
-                  <span className="block font-display text-lg text-primary">{t(e.title)}</span>
+                  <span className="block font-display text-base tracking-tight text-charcoal uppercase">{t(e.title)}</span>
                   <span className="block text-xs text-muted-foreground">{e.date}</span>
                 </span>
               </div>
@@ -88,7 +88,7 @@ function Events() {
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {ISLAMIC_DATES.map((d) => (
             <div key={d.name.en} className="rounded-lg border border-gold/40 bg-card p-5">
-              <h3 className="font-display text-lg text-primary">{t(d.name)}</h3>
+              <h3 className="font-display text-base tracking-tight text-charcoal uppercase">{t(d.name)}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{t(d.note)}</p>
             </div>
           ))}

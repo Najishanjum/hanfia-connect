@@ -50,12 +50,12 @@ function Administration() {
           {STAFF.map((person) => (
             <article
               key={person.name.en}
-              className="rounded-lg border border-border bg-card p-6 text-center"
+              className="soft-card p-6 text-center"
             >
               <span className="mx-auto flex size-20 items-center justify-center rounded-full border-2 border-gold/60 bg-secondary font-display text-2xl text-primary">
                 {initials(person.name.en)}
               </span>
-              <h2 className="mt-4 font-display text-lg text-primary">{t(person.name)}</h2>
+              <h2 className="mt-4 font-display text-base tracking-tight text-charcoal uppercase">{t(person.name)}</h2>
               <p className="mt-1 text-xs uppercase tracking-wide text-gold">{t(person.role)}</p>
               <p className="mt-3 text-sm text-muted-foreground">{t(person.bio)}</p>
             </article>

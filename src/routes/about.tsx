@@ -39,7 +39,7 @@ function About() {
             <p className="mt-6 leading-relaxed text-foreground/85">{t(ABOUT.body)}</p>
             <p className="mt-4 leading-relaxed text-foreground/85">{t(SITE.location)}</p>
           </div>
-          <div className="arch overflow-hidden border-2 border-gold/50">
+          <div className="overflow-hidden rounded-[2rem] border border-border">
             <img
               src={IMAGES.minarets}
               alt="Minarets and green dome of the madrasa masjid"
@@ -55,8 +55,8 @@ function About() {
           <SectionHeading title={ABOUT.missionHeading} />
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {ABOUT.mission.map((item) => (
-              <article key={item.title.en} className="rounded-lg border border-border bg-card p-6">
-                <h3 className="font-display text-xl text-primary">{t(item.title)}</h3>
+              <article key={item.title.en} className="soft-card p-6">
+                <h3 className="font-display text-lg tracking-tight text-charcoal uppercase">{t(item.title)}</h3>
                 <div className="gold-rule mt-3 w-16" aria-hidden />
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{t(item.text)}</p>
               </article>

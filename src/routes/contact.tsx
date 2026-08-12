@@ -33,37 +33,37 @@ function Contact() {
       <Section>
         <div className="grid gap-10 lg:grid-cols-2">
           <div className="space-y-5">
-            <div className="flex gap-3 rounded-lg border border-border bg-card p-5">
+            <div className="flex gap-3 soft-card p-5">
               <MapPin className="mt-0.5 size-5 shrink-0 text-gold" aria-hidden />
               <div>
-                <h2 className="font-display text-lg text-primary">
+                <h2 className="font-display text-base tracking-tight text-charcoal uppercase">
                   {t(m("Address", "پتہ", "العنوان", "ठेगाना"))}
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">{t(SITE.location)}</p>
               </div>
             </div>
-            <div className="flex gap-3 rounded-lg border border-border bg-card p-5">
+            <div className="flex gap-3 soft-card p-5">
               <Phone className="mt-0.5 size-5 shrink-0 text-gold" aria-hidden />
               <div>
-                <h2 className="font-display text-lg text-primary">
+                <h2 className="font-display text-base tracking-tight text-charcoal uppercase">
                   {t(m("Phone", "فون", "الهاتف", "फोन"))}
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">{SITE.phone}</p>
               </div>
             </div>
-            <div className="flex gap-3 rounded-lg border border-border bg-card p-5">
+            <div className="flex gap-3 soft-card p-5">
               <Mail className="mt-0.5 size-5 shrink-0 text-gold" aria-hidden />
               <div>
-                <h2 className="font-display text-lg text-primary">
+                <h2 className="font-display text-base tracking-tight text-charcoal uppercase">
                   {t(m("Email", "ای میل", "البريد الإلكتروني", "इमेल"))}
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">{SITE.email}</p>
               </div>
             </div>
-            <div className="flex gap-3 rounded-lg border border-border bg-card p-5">
+            <div className="flex gap-3 soft-card p-5">
               <Clock className="mt-0.5 size-5 shrink-0 text-gold" aria-hidden />
               <div>
-                <h2 className="font-display text-lg text-primary">
+                <h2 className="font-display text-base tracking-tight text-charcoal uppercase">
                   {t(m("Office hours", "دفتری اوقات", "ساعات العمل", "कार्यालय समय"))}
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
@@ -81,7 +81,7 @@ function Contact() {
           </div>
 
           <form
-            className="rounded-lg border border-border bg-card p-6"
+            className="soft-card p-6"
             onSubmit={(e) => e.preventDefault()}
           >
             <h2 className="font-display text-2xl text-primary">

@@ -11,7 +11,7 @@ export function Footer() {
       <div className="pattern-geo h-2 w-full opacity-70" aria-hidden />
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-3">
         <div>
-          <h3 className="font-display text-lg text-sidebar-primary">{t(SITE.name)}</h3>
+          <h3 className="display-xl text-2xl text-sidebar-primary">{t(SITE.name)}</h3>
           <p className="mt-2 text-sm opacity-80">{t(SITE.tagline)}</p>
           <p className="mt-4 flex items-start gap-2 text-sm opacity-80">
             <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden />
@@ -20,7 +20,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="font-display text-base text-sidebar-primary">
+          <h4 className="font-display text-xs tracking-[0.2em] text-sidebar-primary uppercase">
             {t(m("Quick links", "فوری روابط", "روابط سريعة", "द्रुत लिङ्क"))}
           </h4>
           <ul className="mt-3 grid grid-cols-2 gap-1 text-sm">
@@ -41,7 +41,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="font-display text-base text-sidebar-primary">
+          <h4 className="font-display text-xs tracking-[0.2em] text-sidebar-primary uppercase">
             {t(m("Contact", "رابطہ", "اتصل بنا", "सम्पर्क"))}
           </h4>
           <p className="mt-3 flex items-center gap-2 text-sm opacity-80">
