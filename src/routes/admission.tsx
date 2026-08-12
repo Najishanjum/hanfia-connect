@@ -97,7 +97,7 @@ function Admission() {
           </div>
 
           <form
-            className="rounded-lg border border-border bg-card p-6"
+            className="soft-card p-6"
             onSubmit={(e) => e.preventDefault()}
           >
             <h2 className="font-display text-2xl text-primary">

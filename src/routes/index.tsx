@@ -3,8 +3,6 @@ import {
   BookOpen,
   GraduationCap,
   Users,
-  Phone,
-  FileText,
   CalendarDays,
   ArrowRight,
   ShieldCheck,
@@ -44,77 +42,84 @@ export const Route = createFileRoute("/")({
 
 function Hero() {
   const { t } = useLang();
-  const actions = [
-    { to: "/programs", params: undefined, label: UI.explore, Icon: BookOpen },
-    { to: "/portal/$role", params: { role: "student" }, label: UI.studentPortal, Icon: GraduationCap },
-    { to: "/portal/$role", params: { role: "teacher" }, label: UI.teacherPortal, Icon: Users },
-    { to: "/contact", params: undefined, label: UI.contact, Icon: Phone },
-    { to: "/admission", params: undefined, label: UI.admission, Icon: FileText },
+  const cards = [
+    { img: IMAGES.campus, label: m("Campus", "کیمپس", "الحرم", "क्याम्पस"), rot: "-rotate-6" },
+    { img: IMAGES.minarets, label: m("Masjid", "مسجد", "المسجد", "मस्जिद"), rot: "rotate-3" },
+    { img: IMAGES.campus, label: m("Hifz", "حفظ", "الحفظ", "हिफ्ज़"), rot: "-rotate-2" },
+    { img: IMAGES.minarets, label: m("Tarbiyah", "تربیت", "التربية", "तालिम"), rot: "rotate-6" },
   ];
 
   return (
-    <div className="relative isolate overflow-hidden">
-      <div className="absolute inset-0 -z-20">
-        <img
-          src={IMAGES.campus}
-          alt="Al-Jamiatul Hanfia Mazharul Uloom campus with its green dome and minarets"
-          className="animate-kenburns size-full object-cover"
-        />
-      </div>
+    <div className="relative isolate overflow-hidden bg-background pt-10 pb-24 sm:pt-16">
       <div
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-charcoal/85 via-deep/80 to-deep/95"
+        className="animate-glow pointer-events-none absolute -top-52 left-1/2 -z-10 size-[46rem] -translate-x-1/2 rounded-full bg-gold/25 blur-3xl"
         aria-hidden
       />
-      <div className="pattern-geo animate-pattern-drift absolute inset-0 -z-10 opacity-40" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
-        {[8, 22, 38, 54, 70, 86].map((left, i) => (
-          <span
-            key={left}
-            className="animate-float-up absolute bottom-0 size-1.5 rounded-full bg-gold/70"
-            style={{ left: `${left}%`, animationDelay: `${i * 2.1}s` }}
-          />
-        ))}
+      <div
+        className="pattern-geo animate-pattern-drift pointer-events-none absolute inset-0 -z-10 opacity-[0.12]"
+        aria-hidden
+      />
+
+      <div className="mx-auto max-w-5xl px-4 text-center">
+        <span className="animate-rise inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-semibold tracking-[0.2em] text-muted-foreground uppercase shadow-sm">
+          <span className="size-1.5 rounded-full bg-gold" aria-hidden />
+          {t(SITE.motto)}
+        </span>
+
+        <h1 className="animate-rise display-xl mt-7 text-[2.6rem] text-charcoal sm:text-6xl lg:text-[4.6rem] [animation-delay:80ms]">
+          {t(m("Al-Jamiatul Hanfia", "الجامعۃ الحنفیۃ", "الجامعة الحنفية", "अल-जामिअतुल हनफिया"))}{" "}
+          <span className="text-gold">
+            {t(m("Mazharul Uloom", "مظہر العلوم", "مظهر العلوم", "मज़हरुल उलूम"))}
+          </span>
+        </h1>
+
+        <p className="animate-rise mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base [animation-delay:160ms]">
+          {t(SITE.tagline)} — {t(SITE.location)}
+        </p>
+
+        <div className="animate-rise mt-9 flex flex-wrap justify-center gap-3 [animation-delay:240ms]">
+          <Link
+            to="/admission"
+            className="inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-bold tracking-wide text-charcoal uppercase shadow-[0_18px_40px_-18px_oklch(0.75_0.19_148/0.9)] transition-transform hover:-translate-y-1"
+          >
+            {t(UI.admission)} <ArrowRight className="size-4 rtl:rotate-180" aria-hidden />
+          </Link>
+          <Link
+            to="/programs"
+            className="inline-flex items-center gap-2 rounded-full border border-charcoal/20 bg-card px-7 py-3.5 text-sm font-semibold text-charcoal transition-transform hover:-translate-y-1"
+          >
+            <BookOpen className="size-4" aria-hidden /> {t(UI.explore)}
+          </Link>
+        </div>
       </div>
 
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pt-20 pb-28 sm:pt-28 sm:pb-36 lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="animate-rise text-center text-cream lg:text-start">
-          <p className="font-arabic text-lg tracking-wide text-gold">{t(SITE.motto)}</p>
-          <h1 className="mt-4 font-display text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl">
-            {t(SITE.name)}
-          </h1>
-          <p className="mt-4 text-sm text-cream/80 sm:text-base">{t(SITE.location)}</p>
-          <p className="mt-6 font-urdu text-xl leading-loose text-gold-soft sm:text-2xl">
-            علم کی روشنی، اخلاق کی تربیت
-          </p>
-
-          <div className="mt-9 flex flex-wrap justify-center gap-3 lg:justify-start">
-            {actions.map(({ to, params, label, Icon }, i) => (
-              <Link
-                key={to + (params?.role ?? "")}
-                to={to}
-                params={params as never}
-                className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-transform hover:-translate-y-0.5 ${
-                  i === 0
-                    ? "bg-gold text-charcoal"
-                    : "border border-gold/50 bg-cream/10 text-cream backdrop-blur hover:bg-cream/20"
-                }`}
-              >
-                <Icon className="size-4" aria-hidden />
-                {t(label)}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="animate-rise mx-auto w-full max-w-sm [animation-delay:200ms]">
-          <div className="arch overflow-hidden border-4 border-gold/60 shadow-2xl">
-            <img
-              src={IMAGES.minarets}
-              alt="Green dome and decorated minarets of the madrasa masjid"
-              className="h-[26rem] w-full object-cover"
+      <div className="mt-16 flex flex-wrap items-start justify-center gap-4 px-4 sm:gap-6">
+        {cards.map((c, i) => (
+          <figure
+            key={c.label.en + i}
+            className={`tilt-card animate-rise w-40 rounded-[1.75rem] border border-border bg-card p-2.5 shadow-[0_24px_50px_-30px_oklch(0.2_0.04_158/0.6)] sm:w-52 ${c.rot}`}
+            style={{ animationDelay: `${300 + i * 90}ms` }}
+          >
+            <span
+              className="mx-auto -mt-6 mb-2 block size-4 rounded-full border-2 border-card bg-gold shadow"
+              aria-hidden
             />
-          </div>
-        </div>
+            <img
+              src={c.img}
+              alt={c.label.en}
+              className="h-32 w-full rounded-[1.25rem] object-cover sm:h-44"
+              loading="lazy"
+            />
+            <figcaption className="px-1.5 py-2.5">
+              <span className="block font-display text-[11px] tracking-tight text-charcoal uppercase sm:text-xs">
+                {t(c.label)}
+              </span>
+              <span className="mt-0.5 block text-[10px] text-muted-foreground">
+                {t(SITE.brandBottom)}
+              </span>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   );
@@ -166,15 +171,15 @@ function FeatureStrip() {
   ];
 
   return (
-    <div className="relative z-10 mx-auto -mt-12 max-w-7xl px-4">
-      <div className="grid gap-px overflow-hidden rounded-xl bg-sidebar-border/60 shadow-xl sm:grid-cols-2 lg:grid-cols-4">
+    <div className="relative z-10 mx-auto max-w-7xl px-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {items.map(({ Icon, title, text }) => (
-          <div key={title.en} className="group bg-sidebar p-6 text-sidebar-foreground">
-            <span className="flex size-11 items-center justify-center rounded-full border border-gold/50 text-gold transition-colors group-hover:bg-gold group-hover:text-charcoal">
+          <div key={title.en} className="soft-card tilt-card group p-6">
+            <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary transition-colors group-hover:bg-gold group-hover:text-charcoal">
               <Icon className="size-5" aria-hidden />
             </span>
-            <h3 className="mt-4 font-display text-base text-sidebar-primary">{t(title)}</h3>
-            <p className="mt-1.5 text-xs leading-relaxed opacity-80">{t(text)}</p>
+            <h3 className="mt-4 font-display text-[13px] tracking-tight text-charcoal uppercase">{t(title)}</h3>
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(text)}</p>
           </div>
         ))}
       </div>
@@ -188,7 +193,9 @@ function Home() {
   return (
     <>
       <Hero />
-      <FeatureStrip />
+      <div className="-mt-10">
+        <FeatureStrip />
+      </div>
 
       <Section>
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -203,7 +210,7 @@ function Home() {
               {t(UI.readMore)} <ArrowRight className="size-4 rtl:rotate-180" aria-hidden />
             </Link>
           </div>
-          <div className="arch overflow-hidden border-2 border-gold/50">
+          <div className="overflow-hidden rounded-[2rem] border border-border shadow-[0_30px_60px_-35px_oklch(0.2_0.04_158/0.7)]">
             <img
               src={IMAGES.campus}
               alt="Madrasa building and courtyard"
@@ -221,10 +228,10 @@ function Home() {
             {ABOUT.mission.map((item) => (
               <article
                 key={item.title.en}
-                className="rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
+                className="soft-card tilt-card p-7"
               >
-                <h3 className="font-display text-xl text-primary">{t(item.title)}</h3>
-                <div className="gold-rule mt-3 w-16" aria-hidden />
+                <h3 className="font-display text-lg tracking-tight text-charcoal uppercase">{t(item.title)}</h3>
+                <div className="mt-3 h-1 w-10 rounded-full bg-gold" aria-hidden />
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{t(item.text)}</p>
               </article>
             ))}
@@ -244,8 +251,8 @@ function Home() {
         />
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {PROGRAMS.map((p) => (
-            <article key={p.title.en} className="rounded-lg border border-border bg-card p-5">
-              <h3 className="font-display text-lg text-primary">{t(p.title)}</h3>
+            <article key={p.title.en} className="soft-card tilt-card p-6">
+              <h3 className="font-display text-base tracking-tight text-charcoal uppercase">{t(p.title)}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{t(p.text)}</p>
             </article>
           ))}
@@ -275,9 +282,9 @@ function Home() {
             />
             <ul className="mt-6 space-y-4">
               {NOTICES.map((n) => (
-                <li key={n.title.en} className="rounded-lg border border-border bg-card p-5">
+                <li key={n.title.en} className="soft-card tilt-card p-6">
                   <p className="text-xs text-muted-foreground">{n.date}</p>
-                  <h3 className="mt-1 font-display text-lg text-primary">{t(n.title)}</h3>
+                  <h3 className="mt-1 font-display text-base tracking-tight text-charcoal uppercase">{t(n.title)}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{t(n.text)}</p>
                 </li>
               ))}
@@ -292,13 +299,13 @@ function Home() {
               {EVENTS.map((e) => (
                 <li
                   key={e.title.en}
-                  className="flex items-center gap-4 rounded-lg border border-border bg-card p-4"
+                  className="soft-card flex items-center gap-4 p-4"
                 >
                   <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-secondary text-primary">
                     <CalendarDays className="size-5" aria-hidden />
                   </span>
                   <span>
-                    <span className="block font-display text-base text-primary">{t(e.title)}</span>
+                    <span className="block font-display text-sm tracking-tight text-charcoal uppercase">{t(e.title)}</span>
                     <span className="block text-xs text-muted-foreground">{e.date}</span>
                   </span>
                 </li>

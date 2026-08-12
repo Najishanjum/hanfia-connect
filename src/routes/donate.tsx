@@ -46,7 +46,7 @@ function Donate() {
       <Section>
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <form
-            className="rounded-lg border border-border bg-card p-6"
+            className="soft-card p-6"
             onSubmit={(e) => e.preventDefault()}
           >
             <h2 className="font-display text-2xl text-primary">
@@ -129,7 +129,7 @@ function Donate() {
                 ),
               )}
             </p>
-            <h3 className="mt-8 font-display text-lg text-primary">
+            <h3 className="mt-8 font-display text-base tracking-tight text-charcoal uppercase">
               {t(m("Where your donation goes", "آپ کا عطیہ کہاں خرچ ہوتا ہے", "أين يُصرف تبرعك", "तपाईंको दान कहाँ खर्च हुन्छ"))}
             </h3>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
