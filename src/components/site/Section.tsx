@@ -13,9 +13,9 @@ export function SectionHeading({
   const { t } = useLang();
   return (
     <div className={align === "center" ? "text-center" : ""}>
-      <h2 className="font-display text-3xl text-primary sm:text-4xl">{t(title)}</h2>
+      <h2 className="display-xl text-3xl text-charcoal sm:text-[2.6rem]">{t(title)}</h2>
       <div
-        className={`gold-rule mt-4 w-40 ${align === "center" ? "mx-auto" : ""}`}
+        className={`mt-4 h-1.5 w-16 rounded-full bg-gold ${align === "center" ? "mx-auto" : ""}`}
         aria-hidden
       />
       {subtitle && (
@@ -41,7 +41,7 @@ export function Section({
   id?: string;
 }) {
   return (
-    <section id={id} className={`mx-auto max-w-7xl px-4 py-16 sm:py-20 ${className}`}>
+    <section id={id} className={`mx-auto max-w-7xl px-4 py-16 sm:py-24 ${className}`}>
       {children}
     </section>
   );
@@ -50,12 +50,21 @@ export function Section({
 export function PageHero({ title, subtitle }: { title: Multi; subtitle?: Multi }) {
   const { t } = useLang();
   return (
-    <div className="relative overflow-hidden bg-sidebar text-sidebar-foreground">
-      <div className="pattern-geo absolute inset-0 opacity-30" aria-hidden />
-      <div className="relative mx-auto max-w-7xl px-4 py-16 text-center sm:py-20">
-        <h1 className="font-display text-4xl text-sidebar-primary sm:text-5xl">{t(title)}</h1>
-        <div className="gold-rule mx-auto mt-5 w-48" aria-hidden />
-        {subtitle && <p className="mx-auto mt-4 max-w-2xl text-sm opacity-85">{t(subtitle)}</p>}
+    <div className="relative overflow-hidden bg-background">
+      <div
+        className="animate-glow pointer-events-none absolute -top-40 left-1/2 size-[36rem] -translate-x-1/2 rounded-full bg-gold/25 blur-3xl"
+        aria-hidden
+      />
+      <div className="relative mx-auto max-w-7xl px-4 py-16 text-center sm:py-24">
+        <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+          Mazharul Uloom
+        </span>
+        <h1 className="display-xl mt-6 text-4xl text-charcoal sm:text-6xl">{t(title)}</h1>
+        {subtitle && (
+          <p className="mx-auto mt-5 max-w-2xl text-sm text-muted-foreground sm:text-base">
+            {t(subtitle)}
+          </p>
+        )}
       </div>
     </div>
   );
