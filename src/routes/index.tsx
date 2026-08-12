@@ -3,8 +3,6 @@ import {
   BookOpen,
   GraduationCap,
   Users,
-  Phone,
-  FileText,
   CalendarDays,
   ArrowRight,
   ShieldCheck,
@@ -133,7 +131,9 @@ function Home() {
   return (
     <>
       <Hero />
-      <FeatureStrip />
+      <div className="-mt-10">
+        <FeatureStrip />
+      </div>
 
       <Section>
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
