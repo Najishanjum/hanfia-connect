@@ -6,6 +6,9 @@ import {
   CalendarDays,
   ArrowRight,
   ShieldCheck,
+  Quote,
+  Plus,
+  HeartHandshake,
 } from "lucide-react";
 import {
   ABOUT,
@@ -176,14 +179,16 @@ function FeatureStrip() {
   return (
     <div className="relative z-10 mx-auto max-w-7xl px-4">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map(({ Icon, title, text }) => (
-          <div key={title.en} className="soft-card tilt-card group p-6">
-            <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary transition-colors group-hover:bg-gold group-hover:text-charcoal">
-              <Icon className="size-5" aria-hidden />
-            </span>
-            <h3 className="mt-4 font-display text-[13px] tracking-tight text-charcoal uppercase">{t(title)}</h3>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(text)}</p>
-          </div>
+        {items.map(({ Icon, title, text }, i) => (
+          <Reveal key={title.en} delay={i * 90}>
+            <div className="soft-card tilt-card group h-full p-6">
+              <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-gold group-hover:text-charcoal">
+                <Icon className="size-5" aria-hidden />
+              </span>
+              <h3 className="mt-4 font-display text-[13px] tracking-tight text-charcoal uppercase">{t(title)}</h3>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(text)}</p>
+            </div>
+          </Reveal>
         ))}
       </div>
     </div>
@@ -198,6 +203,18 @@ function Home() {
       <Hero />
       <div className="-mt-10">
         <FeatureStrip />
+      </div>
+
+      <div className="mt-16">
+        <Marquee
+          items={[
+            t(SITE.motto),
+            t(m("Hifz-ul-Qur'an", "حفظ القرآن", "حفظ القرآن", "हिफ्ज़-उल-कुरआन")),
+            t(m("Dars-e-Nizami", "درس نظامی", "درس نظامي", "दर्स-ए-निज़ामी")),
+            t(m("Arabic • Urdu • English • Nepali", "عربی • اردو • انگریزی • نیپالی", "عربي • أردو • إنجليزي • نيبالي", "अरबी • उर्दू • अंग्रेजी • नेपाली")),
+            t(m("Boarding & Hostel", "بورڈنگ و ہاسٹل", "السكن الداخلي", "बोर्डिङ र छात्रावास")),
+          ]}
+        />
       </div>
 
       <Section>
@@ -266,11 +283,14 @@ function Home() {
         <div className="pattern-geo animate-pattern-drift absolute inset-0 opacity-25" aria-hidden />
         <Section className="relative">
           <div className="grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
-            {STATS.map((s) => (
-              <div key={s.label.en}>
-                <p className="font-display text-4xl text-sidebar-primary sm:text-5xl">{s.value}</p>
+            {STATS.map((s, i) => (
+              <Reveal key={s.label.en} delay={i * 110}>
+                <CountUp
+                  value={s.value}
+                  className="font-display text-4xl text-sidebar-primary sm:text-5xl"
+                />
                 <p className="mt-2 text-sm opacity-85">{t(s.label)}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </Section>
