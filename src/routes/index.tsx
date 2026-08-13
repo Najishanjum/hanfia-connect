@@ -19,6 +19,9 @@ import {
 } from "@/content/site";
 import { m, useLang } from "@/lib/i18n";
 import { Section, SectionHeading } from "@/components/site/Section";
+import { Reveal } from "@/components/site/Reveal";
+import { CountUp } from "@/components/site/CountUp";
+import { Marquee } from "@/components/site/Marquee";
 
 export const Route = createFileRoute("/")({
   head: () => ({
