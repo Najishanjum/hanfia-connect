@@ -6,6 +6,9 @@ import {
   CalendarDays,
   ArrowRight,
   ShieldCheck,
+  Quote,
+  Plus,
+  HeartHandshake,
 } from "lucide-react";
 import {
   ABOUT,
@@ -19,6 +22,9 @@ import {
 } from "@/content/site";
 import { m, useLang } from "@/lib/i18n";
 import { Section, SectionHeading } from "@/components/site/Section";
+import { Reveal } from "@/components/site/Reveal";
+import { CountUp } from "@/components/site/CountUp";
+import { Marquee } from "@/components/site/Marquee";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -173,14 +179,16 @@ function FeatureStrip() {
   return (
     <div className="relative z-10 mx-auto max-w-7xl px-4">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map(({ Icon, title, text }) => (
-          <div key={title.en} className="soft-card tilt-card group p-6">
-            <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary transition-colors group-hover:bg-gold group-hover:text-charcoal">
-              <Icon className="size-5" aria-hidden />
-            </span>
-            <h3 className="mt-4 font-display text-[13px] tracking-tight text-charcoal uppercase">{t(title)}</h3>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(text)}</p>
-          </div>
+        {items.map(({ Icon, title, text }, i) => (
+          <Reveal key={title.en} delay={i * 90}>
+            <div className="soft-card tilt-card group h-full p-6">
+              <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-gold group-hover:text-charcoal">
+                <Icon className="size-5" aria-hidden />
+              </span>
+              <h3 className="mt-4 font-display text-[13px] tracking-tight text-charcoal uppercase">{t(title)}</h3>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(text)}</p>
+            </div>
+          </Reveal>
         ))}
       </div>
     </div>
@@ -195,6 +203,18 @@ function Home() {
       <Hero />
       <div className="-mt-10">
         <FeatureStrip />
+      </div>
+
+      <div className="mt-16">
+        <Marquee
+          items={[
+            t(SITE.motto),
+            t(m("Hifz-ul-Qur'an", "حفظ القرآن", "حفظ القرآن", "हिफ्ज़-उल-कुरआन")),
+            t(m("Dars-e-Nizami", "درس نظامی", "درس نظامي", "दर्स-ए-निज़ामी")),
+            t(m("Arabic • Urdu • English • Nepali", "عربی • اردو • انگریزی • نیپالی", "عربي • أردو • إنجليزي • نيبالي", "अरबी • उर्दू • अंग्रेजी • नेपाली")),
+            t(m("Boarding & Hostel", "بورڈنگ و ہاسٹل", "السكن الداخلي", "बोर्डिङ र छात्रावास")),
+          ]}
+        />
       </div>
 
       <Section>
@@ -263,11 +283,14 @@ function Home() {
         <div className="pattern-geo animate-pattern-drift absolute inset-0 opacity-25" aria-hidden />
         <Section className="relative">
           <div className="grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
-            {STATS.map((s) => (
-              <div key={s.label.en}>
-                <p className="font-display text-4xl text-sidebar-primary sm:text-5xl">{s.value}</p>
+            {STATS.map((s, i) => (
+              <Reveal key={s.label.en} delay={i * 110}>
+                <CountUp
+                  value={s.value}
+                  className="font-display text-4xl text-sidebar-primary sm:text-5xl"
+                />
                 <p className="mt-2 text-sm opacity-85">{t(s.label)}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </Section>
@@ -320,6 +343,193 @@ function Home() {
           </div>
         </div>
       </Section>
+
+      <Testimonials />
+      <Faq />
+      <CtaBanner />
     </>
+  );
+}
+
+function Testimonials() {
+  const { t } = useLang();
+  const quotes = [
+    {
+      text: m(
+        "My son memorised the Qur'an here with tajweed and adab. The teachers treat every child like their own.",
+        "میرے بیٹے نے یہاں تجوید و ادب کے ساتھ قرآن حفظ کیا۔ اساتذہ ہر بچے کو اپنا سمجھتے ہیں۔",
+        "حفظ ابني القرآن هنا بالتجويد والأدب. المعلمون يعاملون كل طفل كأنه ابنهم.",
+        "मेरो छोराले यहाँ तजवीदसहित कुरआन हिफ्ज़ गर्‍यो। शिक्षकहरूले हरेक बच्चालाई आफ्नै जस्तै हेर्छन्।",
+      ),
+      name: m("Md. Ansari", "محمد انصاری", "محمد الأنصاري", "मो. अन्सारी"),
+      role: m("Parent", "سرپرست", "ولي أمر", "अभिभावक"),
+    },
+    {
+      text: m(
+        "Religious and modern subjects together gave me confidence for both deen and duniya.",
+        "دینی و عصری تعلیم نے مجھے دین و دنیا دونوں کے لیے حوصلہ دیا۔",
+        "الجمع بين العلوم الشرعية والعصرية منحني ثقة في الدين والدنيا.",
+        "धार्मिक र आधुनिक विषय सँगै पढ्दा दुवैमा आत्मविश्वास मिल्यो।",
+      ),
+      name: m("Abdullah", "عبداللہ", "عبد الله", "अब्दुल्लाह"),
+      role: m("Alumnus", "فارغ التحصیل", "خريج", "पूर्व विद्यार्थी"),
+    },
+    {
+      text: m(
+        "Clean hostel, timely meals and daily tarbiyah sessions — parents can rest easy.",
+        "صاف ہاسٹل، وقت پر کھانا اور روزانہ تربیتی نشستیں — والدین مطمئن رہتے ہیں۔",
+        "سكن نظيف ووجبات منتظمة وجلسات تربية يومية — يطمئن الأولياء.",
+        "सफा छात्रावास, समयमै खाना र दैनिक तालिम — अभिभावक ढुक्क हुन्छन्।",
+      ),
+      name: m("Rukhsana Khatun", "رخسانہ خاتون", "رخسانة خاتون", "रुख्साना खातुन"),
+      role: m("Guardian", "سرپرست", "ولية أمر", "संरक्षक"),
+    },
+  ];
+
+  return (
+    <div className="bg-secondary/60">
+      <Section>
+        <SectionHeading
+          title={m("Voices of Our Community", "ہماری برادری کی آوازیں", "أصوات مجتمعنا", "हाम्रो समुदायका आवाज")}
+          subtitle={m(
+            "What parents, students and alumni say about Mazharul Uloom.",
+            "والدین، طلبہ اور فارغین کیا کہتے ہیں۔",
+            "ماذا يقول الأولياء والطلاب والخريجون.",
+            "अभिभावक, विद्यार्थी र पूर्व विद्यार्थी के भन्छन्।",
+          )}
+        />
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {quotes.map((q, i) => (
+            <Reveal key={q.name.en} delay={i * 110}>
+              <figure className="soft-card tilt-card relative h-full p-7">
+                <Quote className="size-7 text-gold" aria-hidden />
+                <blockquote className="mt-4 text-sm leading-relaxed text-foreground/85">
+                  {t(q.text)}
+                </blockquote>
+                <figcaption className="mt-5 flex items-center gap-3 border-t border-border pt-4">
+                  <span className="grid size-9 place-items-center rounded-full bg-charcoal font-display text-xs text-cream">
+                    {q.name.en.charAt(0)}
+                  </span>
+                  <span>
+                    <span className="block font-display text-[12px] tracking-tight text-charcoal uppercase">
+                      {t(q.name)}
+                    </span>
+                    <span className="block text-[11px] text-muted-foreground">{t(q.role)}</span>
+                  </span>
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+    </div>
+  );
+}
+
+function Faq() {
+  const { t } = useLang();
+  const faqs = [
+    {
+      q: m("Who can apply for admission?", "داخلہ کون لے سکتا ہے؟", "من يمكنه التقديم؟", "भर्नाका लागि को आवेदन दिन सक्छ?"),
+      a: m(
+        "Boys from age 6 and above may apply for Nazra, Hifz and Dars-e-Nizami courses throughout the admission season.",
+        "چھ سال سے زائد عمر کے طلبہ ناظرہ، حفظ اور درس نظامی میں داخلہ لے سکتے ہیں۔",
+        "يمكن للطلاب من سن السادسة فما فوق التقديم لبرامج الناظرة والحفظ ودرس النظامي.",
+        "६ वर्षभन्दा माथिका विद्यार्थीले नाज़रा, हिफ्ज़ र दर्स-ए-निज़ामीमा आवेदन दिन सक्छन्।",
+      ),
+    },
+    {
+      q: m("Is hostel accommodation available?", "کیا ہاسٹل کی سہولت ہے؟", "هل يتوفر سكن داخلي؟", "छात्रावास सुविधा छ?"),
+      a: m(
+        "Yes. Residential students receive lodging, three meals a day and supervised study hours.",
+        "جی ہاں۔ مقیم طلبہ کو رہائش، تین وقت کا کھانا اور نگرانی میں مطالعہ فراہم کیا جاتا ہے۔",
+        "نعم، يحصل الطلاب المقيمون على السكن وثلاث وجبات وساعات مذاكرة تحت الإشراف.",
+        "छ। आवासीय विद्यार्थीले बास, दिनको तीन छाक खाना र निगरानीमा अध्ययन पाउँछन्।",
+      ),
+    },
+    {
+      q: m("Which languages are taught?", "کون سی زبانیں پڑھائی جاتی ہیں؟", "ما اللغات التي تُدرّس؟", "कुन भाषाहरू पढाइन्छ?"),
+      a: m(
+        "Arabic, Urdu, English and Nepali are taught alongside religious sciences.",
+        "عربی، اردو، انگریزی اور نیپالی دینی علوم کے ساتھ پڑھائی جاتی ہیں۔",
+        "تُدرّس العربية والأردية والإنجليزية والنيبالية إلى جانب العلوم الشرعية.",
+        "अरबी, उर्दू, अंग्रेजी र नेपाली धार्मिक विषयसँगै पढाइन्छ।",
+      ),
+    },
+    {
+      q: m("How can I support the madrasa?", "میں مدرسہ کی مدد کیسے کروں؟", "كيف أدعم المدرسة؟", "मदरसालाई कसरी सहयोग गर्ने?"),
+      a: m(
+        "Zakat, sadaqah and sponsorship of a student are all welcome — see the Donate page for details.",
+        "زکوٰۃ، صدقہ اور کفالتِ طالب علم کا خیرمقدم ہے — تفصیل ڈونیٹ صفحہ پر۔",
+        "نرحب بالزكاة والصدقة وكفالة طالب — التفاصيل في صفحة التبرع.",
+        "जकात, सदका र विद्यार्थी प्रायोजन स्वागतयोग्य छ — विवरण दान पृष्ठमा।",
+      ),
+    },
+  ];
+
+  return (
+    <Section>
+      <SectionHeading
+        title={m("Frequently Asked", "اکثر پوچھے گئے سوالات", "الأسئلة الشائعة", "बारम्बार सोधिने प्रश्न")}
+      />
+      <div className="mx-auto mt-10 max-w-3xl space-y-3">
+        {faqs.map((f, i) => (
+          <Reveal key={f.q.en} delay={i * 80}>
+            <details className="faq soft-card px-6 py-5">
+              <summary className="flex items-center justify-between gap-4">
+                <span className="font-display text-[13px] tracking-tight text-charcoal uppercase">
+                  {t(f.q)}
+                </span>
+                <span className="faq-icon grid size-8 shrink-0 place-items-center rounded-full bg-secondary text-primary transition-transform duration-300">
+                  <Plus className="size-4" aria-hidden />
+                </span>
+              </summary>
+              <p className="faq-body mt-3 text-sm leading-relaxed text-muted-foreground">{t(f.a)}</p>
+            </details>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function CtaBanner() {
+  const { t } = useLang();
+  return (
+    <Section>
+      <Reveal>
+        <div className="relative isolate overflow-hidden rounded-[2.5rem] bg-charcoal px-6 py-14 text-center sm:px-12">
+          <div className="pattern-geo animate-pattern-drift absolute inset-0 -z-10 opacity-20" aria-hidden />
+          <div
+            className="animate-glow pointer-events-none absolute -bottom-40 left-1/2 -z-10 size-[30rem] -translate-x-1/2 rounded-full bg-gold/30 blur-3xl"
+            aria-hidden
+          />
+          <span className="inline-flex items-center gap-2 rounded-full border border-cream/20 px-4 py-1.5 text-[11px] font-semibold tracking-[0.2em] text-cream/80 uppercase">
+            <HeartHandshake className="size-3.5 text-gold" aria-hidden />
+            {t(m("Support & Enrol", "تعاون و داخلہ", "الدعم والالتحاق", "सहयोग र भर्ना"))}
+          </span>
+          <h2 className="display-xl mt-6 text-3xl text-cream sm:text-5xl">
+            {t(m("Build a generation of", "ایک نسل تیار کریں", "ابنِ جيلاً من", "एउटा पुस्ता निर्माण गरौं"))}{" "}
+            <span className="gold-text">
+              {t(m("knowledge & character", "علم و اخلاق کی", "العلم والأخلاق", "ज्ञान र चरित्रको"))}
+            </span>
+          </h2>
+          <div className="mt-9 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/admission"
+              className="inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-bold tracking-wide text-charcoal uppercase transition-transform hover:-translate-y-1"
+            >
+              {t(UI.admission)} <ArrowRight className="size-4 rtl:rotate-180" aria-hidden />
+            </Link>
+            <Link
+              to="/donate"
+              className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-7 py-3.5 text-sm font-semibold text-cream transition-colors hover:bg-cream/10"
+            >
+              {t(m("Donate", "عطیہ", "تبرع", "दान"))}
+            </Link>
+          </div>
+        </div>
+      </Reveal>
+    </Section>
   );
 }
