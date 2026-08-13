@@ -15,6 +15,7 @@ import { LanguageProvider } from "@/lib/i18n";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { PageTransition } from "@/components/site/PageTransition";
+import { BackToTop } from "@/components/site/BackToTop";
 
 
 function NotFoundComponent() {
@@ -143,6 +144,7 @@ function RootComponent() {
             </PageTransition>
           </main>
           <Footer />
+          <BackToTop />
         </div>
       </LanguageProvider>
     </QueryClientProvider>
