@@ -138,28 +138,83 @@ function Gallery() {
         </div>
       </Section>
 
-      {active !== null && (
+      {active !== null && shown[active] && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-charcoal/90 p-4"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-charcoal/95 p-4 backdrop-blur-sm animate-in fade-in duration-300"
           onClick={() => setActive(null)}
           role="dialog"
           aria-modal="true"
+          aria-label="Image viewer"
+          onTouchStart={(e) => {
+            touchX.current = e.touches[0]?.clientX ?? null;
+          }}
+          onTouchEnd={(e) => {
+            const start = touchX.current;
+            const end = e.changedTouches[0]?.clientX ?? null;
+            touchX.current = null;
+            if (start === null || end === null) return;
+            const dx = end - start;
+            if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+          }}
         >
           <button
             type="button"
             aria-label="Close"
-            className="absolute end-5 top-5 rounded-full bg-cream/20 p-2 text-cream"
+            className="absolute end-5 top-5 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30"
             onClick={() => setActive(null)}
           >
             <X className="size-5" />
           </button>
-          <img
-            src={PHOTOS[active]!.src}
-            alt={PHOTOS[active]!.alt}
-            className="max-h-[85vh] w-auto rounded-lg border-2 border-gold/60"
-          />
+
+          {shown.length > 1 && (
+            <>
+              <button
+                type="button"
+                aria-label="Previous image"
+                className="absolute start-2 sm:start-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  step(-1);
+                }}
+              >
+                <ChevronLeft className="size-6" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next image"
+                className="absolute end-2 sm:end-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  step(1);
+                }}
+              >
+                <ChevronRight className="size-6" />
+              </button>
+            </>
+          )}
+
+          <figure
+            key={active}
+            className={`max-w-5xl animate-in fade-in duration-500 ease-out ${
+              dir === 1 ? "slide-in-from-right-8" : "slide-in-from-left-8"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={shown[active]!.src}
+              alt={shown[active]!.alt}
+              className="max-h-[78vh] w-auto rounded-xl border-2 border-gold/60 shadow-2xl"
+            />
+            <figcaption className="mt-3 text-center text-sm text-cream/80">
+              {shown[active]!.alt}
+              <span className="ms-3 text-cream/50">
+                {active + 1} / {shown.length}
+              </span>
+            </figcaption>
+          </figure>
         </div>
       )}
     </>
+
   );
 }
