@@ -104,7 +104,11 @@ function Gallery() {
             <button
               key={`${photo.alt}-${i}`}
               type="button"
-              onClick={() => setActive(PHOTOS.indexOf(photo))}
+              onClick={() => {
+                setDir(1);
+                setActive(i);
+              }}
+
               className="group overflow-hidden rounded-lg border border-border"
             >
               <img
