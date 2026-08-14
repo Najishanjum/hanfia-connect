@@ -31,9 +31,36 @@ const PHOTOS = [
 function Gallery() {
   const { t } = useLang();
   const [active, setActive] = useState<number | null>(null);
+  const [dir, setDir] = useState<1 | -1>(1);
   const [filter, setFilter] = useState<number | null>(null);
+  const touchX = useRef<number | null>(null);
 
   const shown = PHOTOS.filter((p) => filter === null || p.cat === filter);
+
+  const step = useCallback(
+    (delta: 1 | -1) => {
+      setDir(delta);
+      setActive((a) => (a === null ? a : (a + delta + shown.length) % shown.length));
+    },
+    [shown.length],
+  );
+
+  useEffect(() => {
+    if (active === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActive(null);
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [active, step]);
+
 
   return (
     <>
