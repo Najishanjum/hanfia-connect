@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { GALLERY_CATEGORIES, IMAGES } from "@/content/site";
 import { m, useLang } from "@/lib/i18n";
 import { PageHero, Section } from "@/components/site/Section";
+
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -30,9 +31,36 @@ const PHOTOS = [
 function Gallery() {
   const { t } = useLang();
   const [active, setActive] = useState<number | null>(null);
+  const [dir, setDir] = useState<1 | -1>(1);
   const [filter, setFilter] = useState<number | null>(null);
+  const touchX = useRef<number | null>(null);
 
   const shown = PHOTOS.filter((p) => filter === null || p.cat === filter);
+
+  const step = useCallback(
+    (delta: 1 | -1) => {
+      setDir(delta);
+      setActive((a) => (a === null ? a : (a + delta + shown.length) % shown.length));
+    },
+    [shown.length],
+  );
+
+  useEffect(() => {
+    if (active === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActive(null);
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [active, step]);
+
 
   return (
     <>
@@ -76,7 +104,11 @@ function Gallery() {
             <button
               key={`${photo.alt}-${i}`}
               type="button"
-              onClick={() => setActive(PHOTOS.indexOf(photo))}
+              onClick={() => {
+                setDir(1);
+                setActive(i);
+              }}
+
               className="group overflow-hidden rounded-lg border border-border"
             >
               <img
@@ -106,28 +138,83 @@ function Gallery() {
         </div>
       </Section>
 
-      {active !== null && (
+      {active !== null && shown[active] && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-charcoal/90 p-4"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-charcoal/95 p-4 backdrop-blur-sm animate-in fade-in duration-300"
           onClick={() => setActive(null)}
           role="dialog"
           aria-modal="true"
+          aria-label="Image viewer"
+          onTouchStart={(e) => {
+            touchX.current = e.touches[0]?.clientX ?? null;
+          }}
+          onTouchEnd={(e) => {
+            const start = touchX.current;
+            const end = e.changedTouches[0]?.clientX ?? null;
+            touchX.current = null;
+            if (start === null || end === null) return;
+            const dx = end - start;
+            if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+          }}
         >
           <button
             type="button"
             aria-label="Close"
-            className="absolute end-5 top-5 rounded-full bg-cream/20 p-2 text-cream"
+            className="absolute end-5 top-5 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30"
             onClick={() => setActive(null)}
           >
             <X className="size-5" />
           </button>
-          <img
-            src={PHOTOS[active]!.src}
-            alt={PHOTOS[active]!.alt}
-            className="max-h-[85vh] w-auto rounded-lg border-2 border-gold/60"
-          />
+
+          {shown.length > 1 && (
+            <>
+              <button
+                type="button"
+                aria-label="Previous image"
+                className="absolute start-2 sm:start-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  step(-1);
+                }}
+              >
+                <ChevronLeft className="size-6" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next image"
+                className="absolute end-2 sm:end-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  step(1);
+                }}
+              >
+                <ChevronRight className="size-6" />
+              </button>
+            </>
+          )}
+
+          <figure
+            key={active}
+            className={`max-w-5xl animate-in fade-in duration-500 ease-out ${
+              dir === 1 ? "slide-in-from-right-8" : "slide-in-from-left-8"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={shown[active]!.src}
+              alt={shown[active]!.alt}
+              className="max-h-[78vh] w-auto rounded-xl border-2 border-gold/60 shadow-2xl"
+            />
+            <figcaption className="mt-3 text-center text-sm text-cream/80">
+              {shown[active]!.alt}
+              <span className="ms-3 text-cream/50">
+                {active + 1} / {shown.length}
+              </span>
+            </figcaption>
+          </figure>
         </div>
       )}
     </>
+
   );
 }
