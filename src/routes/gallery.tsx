@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { GALLERY_CATEGORIES, IMAGES } from "@/content/site";
 import { m, useLang } from "@/lib/i18n";
 import { PageHero, Section } from "@/components/site/Section";
+
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
