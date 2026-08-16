@@ -33,7 +33,11 @@ function Gallery() {
   const [active, setActive] = useState<number | null>(null);
   const [dir, setDir] = useState<1 | -1>(1);
   const [filter, setFilter] = useState<number | null>(null);
+  const [loaded, setLoaded] = useState<Record<string, boolean>>({});
   const touchX = useRef<number | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const closeRef = useRef<HTMLButtonElement | null>(null);
+  const lastFocused = useRef<HTMLElement | null>(null);
 
   const shown = PHOTOS.filter((p) => filter === null || p.cat === filter);
 
@@ -47,10 +51,30 @@ function Gallery() {
 
   useEffect(() => {
     if (active === null) return;
+    lastFocused.current = (document.activeElement as HTMLElement) ?? null;
+    closeRef.current?.focus();
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setActive(null);
       if (e.key === "ArrowRight") step(1);
       if (e.key === "ArrowLeft") step(-1);
+      if (e.key === "Tab") {
+        const nodes = dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        if (!nodes || nodes.length === 0) return;
+        const list = Array.from(nodes).filter((n) => !n.hasAttribute("disabled"));
+        const first = list[0]!;
+        const last = list[list.length - 1]!;
+        const current = document.activeElement as HTMLElement | null;
+        if (e.shiftKey && (current === first || !dialogRef.current?.contains(current))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && current === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
@@ -58,8 +82,10 @@ function Gallery() {
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
+      lastFocused.current?.focus?.();
     };
   }, [active, step]);
+
 
 
   return (
