@@ -125,27 +125,47 @@ function Gallery() {
           ))}
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {shown.map((photo, i) => (
-            <button
-              key={`${photo.alt}-${i}`}
-              type="button"
-              onClick={() => {
-                setDir(1);
-                setActive(i);
-              }}
+        <ul className="mt-10 grid list-none gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {shown.map((photo, i) => {
+            const key = `${photo.alt}-${i}`;
+            return (
+              <li key={key}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDir(1);
+                    setActive(i);
+                  }}
+                  aria-haspopup="dialog"
+                  aria-label={t(m("View image", "تصویر دیکھیں", "عرض الصورة", "तस्बिर हेर्नुहोस्")) + `: ${photo.alt}`}
+                  className="group block w-full overflow-hidden rounded-lg border border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                >
+                  <span
+                    className={`block h-60 w-full overflow-hidden bg-muted ${
+                      loaded[key] ? "" : "animate-pulse"
+                    }`}
+                  >
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      loading={i < 3 ? "eager" : "lazy"}
+                      decoding="async"
+                      fetchPriority={i < 3 ? "high" : "low"}
+                      width={800}
+                      height={600}
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      onLoad={() => setLoaded((s) => ({ ...s, [key]: true }))}
+                      className={`h-60 w-full object-cover transition-all duration-500 group-hover:scale-105 ${
+                        loaded[key] ? "opacity-100 blur-0" : "opacity-0 blur-md"
+                      }`}
+                    />
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
 
-              className="group overflow-hidden rounded-lg border border-border"
-            >
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                loading="lazy"
-                className="h-60 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </button>
-          ))}
-        </div>
 
         <div className="mt-16 rounded-lg border border-dashed border-gold/60 bg-secondary/50 p-8 text-center">
           <h2 className="font-display text-2xl text-primary">
