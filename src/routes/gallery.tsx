@@ -186,11 +186,13 @@ function Gallery() {
 
       {active !== null && shown[active] && (
         <div
+          ref={dialogRef}
           className="fixed inset-0 z-[60] flex items-center justify-center bg-charcoal/95 p-4 backdrop-blur-sm animate-in fade-in duration-300"
           onClick={() => setActive(null)}
           role="dialog"
           aria-modal="true"
-          aria-label="Image viewer"
+          aria-labelledby="lightbox-caption"
+          aria-describedby="lightbox-help"
           onTouchStart={(e) => {
             touchX.current = e.touches[0]?.clientX ?? null;
           }}
@@ -203,13 +205,22 @@ function Gallery() {
             if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
           }}
         >
+          <p id="lightbox-help" className="sr-only">
+            Image viewer. Use the left and right arrow keys to move between images, and press Escape to
+            close.
+          </p>
+          <p aria-live="polite" aria-atomic="true" className="sr-only">
+            {`Image ${active + 1} of ${shown.length}: ${shown[active]!.alt}`}
+          </p>
+
           <button
+            ref={closeRef}
             type="button"
-            aria-label="Close"
-            className="absolute end-5 top-5 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30"
+            aria-label="Close image viewer"
+            className="absolute end-5 top-5 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream"
             onClick={() => setActive(null)}
           >
-            <X className="size-5" />
+            <X className="size-5" aria-hidden="true" />
           </button>
 
           {shown.length > 1 && (
@@ -217,24 +228,24 @@ function Gallery() {
               <button
                 type="button"
                 aria-label="Previous image"
-                className="absolute start-2 sm:start-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110"
+                className="absolute start-2 sm:start-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream"
                 onClick={(e) => {
                   e.stopPropagation();
                   step(-1);
                 }}
               >
-                <ChevronLeft className="size-6" />
+                <ChevronLeft className="size-6" aria-hidden="true" />
               </button>
               <button
                 type="button"
                 aria-label="Next image"
-                className="absolute end-2 sm:end-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110"
+                className="absolute end-2 sm:end-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream"
                 onClick={(e) => {
                   e.stopPropagation();
                   step(1);
                 }}
               >
-                <ChevronRight className="size-6" />
+                <ChevronRight className="size-6" aria-hidden="true" />
               </button>
             </>
           )}
@@ -249,9 +260,12 @@ function Gallery() {
             <img
               src={shown[active]!.src}
               alt={shown[active]!.alt}
+              decoding="async"
+              fetchPriority="high"
+              sizes="100vw"
               className="max-h-[78vh] w-auto rounded-xl border-2 border-gold/60 shadow-2xl"
             />
-            <figcaption className="mt-3 text-center text-sm text-cream/80">
+            <figcaption id="lightbox-caption" className="mt-3 text-center text-sm text-cream/80">
               {shown[active]!.alt}
               <span className="ms-3 text-cream/50">
                 {active + 1} / {shown.length}
@@ -260,6 +274,7 @@ function Gallery() {
           </figure>
         </div>
       )}
+
     </>
 
   );
