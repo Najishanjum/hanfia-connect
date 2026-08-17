@@ -184,6 +184,13 @@ function Gallery() {
         </div>
       </Section>
 
+      {/* Persistent live region so SRs announce changes reliably (outside the dialog) */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {active !== null && shown[active]
+          ? `${t(m("Image", "تصویر", "صورة", "तस्बिर"))} ${active + 1} ${t(m("of", "از", "من", "मध्ये"))} ${shown.length}: ${shown[active]!.alt}`
+          : ""}
+      </div>
+
       {active !== null && shown[active] && (
         <div
           ref={dialogRef}
@@ -191,7 +198,7 @@ function Gallery() {
           onClick={() => setActive(null)}
           role="dialog"
           aria-modal="true"
-          aria-labelledby="lightbox-caption"
+          aria-label={t(m("Image viewer", "تصویر ویور", "عارض الصور", "तस्बिर दर्शक"))}
           aria-describedby="lightbox-help"
           onTouchStart={(e) => {
             touchX.current = e.touches[0]?.clientX ?? null;
@@ -206,12 +213,16 @@ function Gallery() {
           }}
         >
           <p id="lightbox-help" className="sr-only">
-            Image viewer. Use the left and right arrow keys to move between images, and press Escape to
-            close.
+            {t(
+              m(
+                "Image viewer. Use the left and right arrow keys to move between images, and press Escape to close.",
+                "تصویر ویور۔ تصاویر بدلنے کے لیے دائیں بائیں تیر کے بٹن دبائیں، بند کرنے کے لیے Escape دبائیں۔",
+                "عارض الصور. استخدم مفتاحي السهمين للتنقل بين الصور، واضغط Escape للإغلاق.",
+                "तस्बिर दर्शक। तस्बिर बदल्न बायाँ/दायाँ एरो थिच्नुहोस्, बन्द गर्न Escape थिच्नुहोस्।",
+              ),
+            )}
           </p>
-          <p aria-live="polite" aria-atomic="true" className="sr-only">
-            {`Image ${active + 1} of ${shown.length}: ${shown[active]!.alt}`}
-          </p>
+
 
           <button
             ref={closeRef}
