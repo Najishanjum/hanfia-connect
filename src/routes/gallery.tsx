@@ -101,10 +101,14 @@ function Gallery() {
       />
 
       <Section>
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2" role="group" aria-label={t(m("Filter photos by category", "زمرہ کے مطابق تصاویر چھانٹیں", "تصفية الصور حسب الفئة", "श्रेणी अनुसार तस्बिर छान्नुहोस्"))}>
           <button
             type="button"
-            onClick={() => setFilter(null)}
+            onClick={() => {
+              setActive(null);
+              setFilter(null);
+            }}
+            aria-pressed={filter === null}
             className={`rounded-full border px-4 py-1.5 text-sm ${
               filter === null ? "border-primary bg-primary text-primary-foreground" : "border-border"
             }`}
@@ -115,7 +119,11 @@ function Gallery() {
             <button
               key={c.en}
               type="button"
-              onClick={() => setFilter(i)}
+              onClick={() => {
+                setActive(null);
+                setFilter(i);
+              }}
+              aria-pressed={filter === i}
               className={`rounded-full border px-4 py-1.5 text-sm ${
                 filter === i ? "border-primary bg-primary text-primary-foreground" : "border-border"
               }`}
@@ -124,6 +132,7 @@ function Gallery() {
             </button>
           ))}
         </div>
+
 
         <ul className="mt-10 grid list-none gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((photo, i) => {
