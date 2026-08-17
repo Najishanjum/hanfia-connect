@@ -227,7 +227,7 @@ function Gallery() {
           <button
             ref={closeRef}
             type="button"
-            aria-label="Close image viewer"
+            aria-label={t(m("Close image viewer", "تصویر ویور بند کریں", "إغلاق عارض الصور", "तस्बिर दर्शक बन्द गर्नुहोस्"))}
             className="absolute end-5 top-5 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream"
             onClick={() => setActive(null)}
           >
