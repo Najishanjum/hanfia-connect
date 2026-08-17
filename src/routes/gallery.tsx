@@ -249,7 +249,7 @@ function Gallery() {
               </button>
               <button
                 type="button"
-                aria-label="Next image"
+                aria-label={t(m("Next image", "اگلی تصویر", "الصورة التالية", "अर्को तस्बिर"))}
                 className="absolute end-2 sm:end-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream"
                 onClick={(e) => {
                   e.stopPropagation();
