@@ -101,10 +101,14 @@ function Gallery() {
       />
 
       <Section>
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2" role="group" aria-label={t(m("Filter photos by category", "زمرہ کے مطابق تصاویر چھانٹیں", "تصفية الصور حسب الفئة", "श्रेणी अनुसार तस्बिर छान्नुहोस्"))}>
           <button
             type="button"
-            onClick={() => setFilter(null)}
+            onClick={() => {
+              setActive(null);
+              setFilter(null);
+            }}
+            aria-pressed={filter === null}
             className={`rounded-full border px-4 py-1.5 text-sm ${
               filter === null ? "border-primary bg-primary text-primary-foreground" : "border-border"
             }`}
@@ -115,7 +119,11 @@ function Gallery() {
             <button
               key={c.en}
               type="button"
-              onClick={() => setFilter(i)}
+              onClick={() => {
+                setActive(null);
+                setFilter(i);
+              }}
+              aria-pressed={filter === i}
               className={`rounded-full border px-4 py-1.5 text-sm ${
                 filter === i ? "border-primary bg-primary text-primary-foreground" : "border-border"
               }`}
@@ -124,6 +132,7 @@ function Gallery() {
             </button>
           ))}
         </div>
+
 
         <ul className="mt-10 grid list-none gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((photo, i) => {
@@ -184,6 +193,13 @@ function Gallery() {
         </div>
       </Section>
 
+      {/* Persistent live region so SRs announce changes reliably (outside the dialog) */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {active !== null && shown[active]
+          ? `${t(m("Image", "تصویر", "صورة", "तस्बिर"))} ${active + 1} ${t(m("of", "از", "من", "मध्ये"))} ${shown.length}: ${shown[active]!.alt}`
+          : ""}
+      </div>
+
       {active !== null && shown[active] && (
         <div
           ref={dialogRef}
@@ -191,7 +207,7 @@ function Gallery() {
           onClick={() => setActive(null)}
           role="dialog"
           aria-modal="true"
-          aria-labelledby="lightbox-caption"
+          aria-label={t(m("Image viewer", "تصویر ویور", "عارض الصور", "तस्बिर दर्शक"))}
           aria-describedby="lightbox-help"
           onTouchStart={(e) => {
             touchX.current = e.touches[0]?.clientX ?? null;
@@ -206,17 +222,21 @@ function Gallery() {
           }}
         >
           <p id="lightbox-help" className="sr-only">
-            Image viewer. Use the left and right arrow keys to move between images, and press Escape to
-            close.
+            {t(
+              m(
+                "Image viewer. Use the left and right arrow keys to move between images, and press Escape to close.",
+                "تصویر ویور۔ تصاویر بدلنے کے لیے دائیں بائیں تیر کے بٹن دبائیں، بند کرنے کے لیے Escape دبائیں۔",
+                "عارض الصور. استخدم مفتاحي السهمين للتنقل بين الصور، واضغط Escape للإغلاق.",
+                "तस्बिर दर्शक। तस्बिर बदल्न बायाँ/दायाँ एरो थिच्नुहोस्, बन्द गर्न Escape थिच्नुहोस्।",
+              ),
+            )}
           </p>
-          <p aria-live="polite" aria-atomic="true" className="sr-only">
-            {`Image ${active + 1} of ${shown.length}: ${shown[active]!.alt}`}
-          </p>
+
 
           <button
             ref={closeRef}
             type="button"
-            aria-label="Close image viewer"
+            aria-label={t(m("Close image viewer", "تصویر ویور بند کریں", "إغلاق عارض الصور", "तस्बिर दर्शक बन्द गर्नुहोस्"))}
             className="absolute end-5 top-5 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream"
             onClick={() => setActive(null)}
           >
@@ -227,7 +247,7 @@ function Gallery() {
             <>
               <button
                 type="button"
-                aria-label="Previous image"
+                aria-label={t(m("Previous image", "پچھلی تصویر", "الصورة السابقة", "अघिल्लो तस्बिर"))}
                 className="absolute start-2 sm:start-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -238,7 +258,7 @@ function Gallery() {
               </button>
               <button
                 type="button"
-                aria-label="Next image"
+                aria-label={t(m("Next image", "اگلی تصویر", "الصورة التالية", "अर्को तस्बिर"))}
                 className="absolute end-2 sm:end-6 rounded-full bg-cream/15 p-2 text-cream transition hover:bg-cream/30 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -259,7 +279,7 @@ function Gallery() {
           >
             <img
               src={shown[active]!.src}
-              alt={shown[active]!.alt}
+              alt=""
               decoding="async"
               fetchPriority="high"
               sizes="100vw"
