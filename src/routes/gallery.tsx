@@ -270,7 +270,7 @@ function Gallery() {
           >
             <img
               src={shown[active]!.src}
-              alt={shown[active]!.alt}
+              alt=""
               decoding="async"
               fetchPriority="high"
               sizes="100vw"
