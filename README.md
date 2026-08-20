@@ -129,13 +129,10 @@ Student profile:
  Section
 
  Roll Number
-
  Previous Education
-
  Blood Group (optional)
 
  Hostel status
-
  Transport status
 
  Documents
@@ -972,7 +969,6 @@ Automatically generate:
  Appreciation Certificate
 
 with:
-
 QR Code → Verify Certificate
 
 Example:
@@ -1068,13 +1064,9 @@ Create:
 "Our Alumni"
 
 section.
-
 📝 32. Online Admission
-
 Parents can apply online.
-
 Admission Application
-
 Student Information
 ↓
 Guardian Information
@@ -1112,15 +1104,10 @@ Track madrasa assets:
  Kitchen equipment
 
  Sports equipment
-
 With:
-
 Item → Quantity → Location → Condition → Purchase Date
-
 🍛 34. Mess / Food Management
-
 If hostel students stay there, add:
-
 Mess Management
 
  Daily menu
@@ -1438,18 +1425,12 @@ Build:
  PWA/mobile app
 add this image and also in home page their background in aniamtion type like a madarsa and students
 
-This project was built with [Lovable](https://lovable.dev).
-
 **Live app**: https://hanfia-connect.lovable.app
 
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/9aa3ced9-aa93-4730-a0e7-abda48ad40cb).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
 - **Stay in sync**: every change made in Lovable is committed straight to this repository.
 - **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
 ## Development
 
 Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
